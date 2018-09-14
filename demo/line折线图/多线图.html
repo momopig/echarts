@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <!-- 引入 ECharts 文件 -->
+    <title>纵坐标：百分比、按区间；横坐标label旋转</title>
+</head>
+<body>
+  <div id="main" style="width: 600px;height:400px;"></div>
+  <script src="https://cdn.bootcss.com/echarts/4.1.0.rc2/echarts-en.min.js"></script>
+  <script type="text/javascript">
+    const itemStyle = {
+                normal: {
+                    label: {
+                        // show: true,
+                        formatter: '{c}%'
+                    }
+                }
+            };
+    var  option = {
+          title: {
+          },
+          tooltip: {
+              trigger: 'axis'
+          },
+          legend: {
+              data:['置信上限','趋势预测','置信下限','监管要求（不低于）','LCR（流动性覆盖率）']
+          },
+          grid: {
+              left: '3%',
+              right: '4%',
+              bottom: '3%',
+              containLabel: true
+          },
+          toolbox: {
+              feature: {
+                  saveAsImage: {}
+              }
+          },
+          xAxis: {
+              type: 'category',
+              boundaryGap: false,
+              data: ['2017/8/1','2017/8/2','2017/8/3','2017/8/4','2017/8/5','2017/8/6','2017/8/7'],
+              axisLabel: {
+                rotate: 90
+              },
+          },
+          yAxis: {
+              type: 'value',
+              // min: 0,
+              // max: 1.6,
+              interval: 0.2,
+              axisLabel: {
+                  show: true,
+                  interval: 'auto',
+                  formatter: function (value, idx) {
+                      return value * 100 + '%';
+                  }
+                },
+          },
+          series: [
+              {
+                  name:'置信上限',
+                  type:'line',
+                  itemStyle: itemStyle,
+                  color: '#82C1F4',
+                  data:[0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7]
+              },
+              {
+                  name:'趋势预测',
+                  type:'line',
+                  itemStyle: itemStyle,
+                  color: '#FFAA1E',
+                  data:[0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8]
+              },
+              {
+                  name:'置信下限',
+                  type:'line',
+                  itemStyle: itemStyle,
+                  color: '#00BBCA',
+
+                  data:[0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
+              },
+              {
+                  name:'监管要求（不低于）',
+                  type:'line',
+                  itemStyle: itemStyle,
+                  color: '#FF8080',
+                  data:[0.25, 0.25, 0.25, 0.25, 0.25]
+              },
+              {
+                  name:'LCR（流动性覆盖率）',
+                  type:'line',
+                  itemStyle: itemStyle,
+                  color: '#4F98EA',
+                  data:[0.7, 0.8, 0.9, 1, 1.2, 1.6, 1.8]
+              }
+          ]
+      };
+      var myChart = echarts.init(document.getElementById('main'));
+      myChart.setOption(option);
+  </script>
+</body>
+</html>
